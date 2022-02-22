@@ -1,19 +1,26 @@
 package ic.doc;
 
 
+import ic.doc.catalogues.LibraryCatalogue;
+
 public class BookSearchQueryBuilder {
     private String name1;
     private String name2;
     private String title;
     private Integer date1;
     private Integer date2;
+    private LibraryCatalogue libraryCatalogue;
 
-    public static BookSearchQueryBuilder aBookSearchQuery() {
-        return new BookSearchQueryBuilder();
+    public static BookSearchQueryBuilder aBookSearchQuery(LibraryCatalogue libraryCatalogue) {
+        return new BookSearchQueryBuilder(libraryCatalogue);
+    }
+
+    private BookSearchQueryBuilder(LibraryCatalogue libraryCatalogue) {
+        this.libraryCatalogue = libraryCatalogue;
     }
 
     public BookSearchQuery build() {
-        BookSearchQuery bookSearchQuery = new BookSearchQuery(name1, name2, title, date1, date2);
+        BookSearchQuery bookSearchQuery = new BookSearchQuery(libraryCatalogue, name1, name2, title, date1, date2);
         return bookSearchQuery;
     }
 
