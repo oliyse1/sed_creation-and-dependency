@@ -6,81 +6,108 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import ic.doc.catalogues.BritishLibraryCatalogue;
+import ic.doc.catalogues.LibraryCatalogue;
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnitRuleMockery;
+import org.junit.Rule;
 import org.junit.Test;
-import static ic.doc.BookSearchQueryBuilder.*;
+import static ic.doc.BookSearchQueryBuilder.aBookSearchQuery;
 
 public class BookSearchQueryTest {
 
-  BritishLibraryCatalogue britishLibraryCatalogue = BritishLibraryCatalogue.getInstance();
+  // Create rule to manage JMock expectations
+  @Rule public JUnitRuleMockery context = new JUnitRuleMockery();
+
+  // Create mock object of LibraryCatalogue
+  LibraryCatalogue libraryCatalogue = context.mock(LibraryCatalogue.class);
+
+  private void checkExpectations(String queryString) {
+    context.checking(
+        new Expectations() {
+          {
+            exactly(1).of(libraryCatalogue).searchFor(queryString);
+          }
+        });
+  }
 
   @Test
   public void searchesForBooksInLibraryCatalogueByAuthorSurname() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).withLastName("dickens").build().execute();
-//    List<Book> books = new BookSearchQuery(null, "dickens", null, null, null).execute();
-
-    assertThat(books.size(), is(2));
-    assertTrue(books.get(0).matchesAuthor("dickens"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "LASTNAME='dickens' ";
+    checkExpectations(queryString);
+    List<Book> books = aBookSearchQuery(libraryCatalogue).withLastName("dickens").build().execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueByAuthorFirstname() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).withFirstName("Jane").build().execute();
-//    List<Book> books = new BookSearchQuery("Jane", null, null, null, null).execute();
-
-    assertThat(books.size(), is(2));
-    assertTrue(books.get(0).matchesAuthor("Austen"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "FIRSTNAME='Jane' ";
+    checkExpectations(queryString);
+    List<Book> books = aBookSearchQuery(libraryCatalogue).withFirstName("Jane").build().execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueByTitle() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).withTitle("Two Cities").build().execute();
-//    List<Book> books = new BookSearchQuery(null, null, "Two Cities", null, null).execute();
-
-    assertThat(books.size(), is(1));
-    assertTrue(books.get(0).matchesAuthor("dickens"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "TITLECONTAINS(Two Cities) ";
+    checkExpectations(queryString);
+    List<Book> books = aBookSearchQuery(libraryCatalogue).withTitle("Two Cities").build().execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueBeforeGivenPublicationYear() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).publishedBefore(1700).build().execute();
-//    List<Book> books = new BookSearchQuery(null, null, null, null, 1700).execute();
-
-    assertThat(books.size(), is(1));
-    assertTrue(books.get(0).matchesAuthor("Shakespeare"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "PUBLISHEDBEFORE(1700) ";
+    checkExpectations(queryString);
+    List<Book> books = aBookSearchQuery(libraryCatalogue).publishedBefore(1700).build().execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueAfterGivenPublicationYear() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).publishedAfter(1950).build().execute();
-//    List<Book> books = new BookSearchQuery(null, null, null, 1950, null).execute();
-
-    assertThat(books.size(), is(1));
-    assertTrue(books.get(0).matchesAuthor("Golding"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "PUBLISHEDAFTER(1950) ";
+    checkExpectations(queryString);
+    List<Book> books = aBookSearchQuery(libraryCatalogue).publishedAfter(1950).build().execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueWithCombinationOfParameters() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).withLastName("dickens").publishedBefore(1840).build().execute();
-//    List<Book> books = new BookSearchQuery(null, "dickens", null, null, 1840).execute();
-
-    assertThat(books.size(), is(1));
-    assertTrue(books.get(0).matchesAuthor("charles dickens"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "LASTNAME='dickens' PUBLISHEDBEFORE(1840) ";
+    checkExpectations(queryString);
+    List<Book> books =
+        aBookSearchQuery(libraryCatalogue)
+            .withLastName("dickens")
+            .publishedBefore(1840)
+            .build()
+            .execute();
   }
 
   @Test
   public void searchesForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParameters() {
 
-    List<Book> books = aBookSearchQuery(britishLibraryCatalogue).withTitle("of").publishedAfter(1800).publishedBefore(2000).build().execute();
-//    List<Book> books = new BookSearchQuery(null, null, "of", 1800, 2000).execute();
-
-    assertThat(books.size(), is(3));
-    assertTrue(books.get(0).matchesAuthor("charles dickens"));
+    // Check that this query is passed as a parameter when searchFor is called under
+    // LibraryCatalogue
+    String queryString = "TITLECONTAINS(of) PUBLISHEDAFTER(1800) PUBLISHEDBEFORE(2000) ";
+    checkExpectations(queryString);
+    List<Book> books =
+        aBookSearchQuery(libraryCatalogue)
+            .withTitle("of")
+            .publishedAfter(1800)
+            .publishedBefore(2000)
+            .build()
+            .execute();
   }
 }

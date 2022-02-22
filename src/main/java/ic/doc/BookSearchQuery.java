@@ -7,14 +7,17 @@ import java.util.List;
 
 public class BookSearchQuery {
 
+  private final LibraryCatalogue libraryCatalogue;
   private final String name1;
   private final String name2;
   private final String title;
   private final Integer date1;
   private final Integer date2;
-  private final LibraryCatalogue libraryCatalogue;
 
-  public BookSearchQuery(LibraryCatalogue libraryCatalogue, String p1, String p2, String p3, Integer p4, Integer p5) {
+  // Takes in libraryCatalogue interface as a parameter to reduce dependencies on a specific type of
+  // library catalogue
+  public BookSearchQuery(
+      LibraryCatalogue libraryCatalogue, String p1, String p2, String p3, Integer p4, Integer p5) {
     this.libraryCatalogue = libraryCatalogue;
     this.name1 = p1;
     this.name2 = p2;

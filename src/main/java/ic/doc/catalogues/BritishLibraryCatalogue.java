@@ -15,11 +15,13 @@ import java.util.stream.Collectors;
 public class BritishLibraryCatalogue implements LibraryCatalogue {
 
   // imagine that each new instance of this object uses more than 500MB of RAM
+  // Class is designed in a Singleton pattern
 
   private static BritishLibraryCatalogue instance = new BritishLibraryCatalogue();
 
   private final Collection<Book> catalogue = allTheBooks();
 
+  // Private constructor
   private BritishLibraryCatalogue() {}
 
   public static BritishLibraryCatalogue getInstance() {
@@ -36,7 +38,6 @@ public class BritishLibraryCatalogue implements LibraryCatalogue {
         .filter(book -> book.publishedBefore(publishedBeforeFrom(query)))
         .collect(Collectors.toList());
   }
-
 
   private Collection<Book> allTheBooks() {
 
@@ -57,5 +58,4 @@ public class BritishLibraryCatalogue implements LibraryCatalogue {
     // and so on... Imagine that this list is very large and therefore uses a lot of memory.
 
   }
-
 }
