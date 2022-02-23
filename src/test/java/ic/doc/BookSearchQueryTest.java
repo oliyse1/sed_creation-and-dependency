@@ -31,7 +31,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByAuthorSurname() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueByAuthorSurname() {
 
     // Check that this query is passed as a parameter when searchFor is called under
     // LibraryCatalogue
@@ -41,7 +41,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByAuthorFirstname() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueByAuthorFirstname() {
 
     String queryString = "FIRSTNAME='Jane' ";
     checkExpectations(queryString);
@@ -49,7 +49,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByTitle() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueByTitle() {
 
     String queryString = "TITLECONTAINS(Two Cities) ";
     checkExpectations(queryString);
@@ -57,7 +57,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueBeforeGivenPublicationYear() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueBeforeGivenPublicationYear() {
 
     String queryString = "PUBLISHEDBEFORE(1700) ";
     checkExpectations(queryString);
@@ -65,7 +65,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueAfterGivenPublicationYear() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueAfterGivenPublicationYear() {
 
     String queryString = "PUBLISHEDAFTER(1950) ";
     checkExpectations(queryString);
@@ -73,7 +73,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueWithCombinationOfParameters() {
+  public void checkQueryStringWhenSearchingInLibraryCatalogueWithCombinationOfParameters() {
 
     String queryString = "LASTNAME='dickens' PUBLISHEDBEFORE(1840) ";
     checkExpectations(queryString);
@@ -87,7 +87,7 @@ public class BookSearchQueryTest {
 
   @Test
   public void
-      checkQueryStringWhenSearchingForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParameters() {
+      checkQueryStringWhenSearchingInLibraryCatalogueWithCombinationOfTitleAndOtherParameters() {
 
     String queryString = "TITLECONTAINS(of) PUBLISHEDAFTER(1800) PUBLISHEDBEFORE(2000) ";
     checkExpectations(queryString);
