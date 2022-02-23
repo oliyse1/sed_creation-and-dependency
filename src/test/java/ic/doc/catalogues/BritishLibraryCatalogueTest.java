@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.Test;
 
+// Please ignore this class if not needed, I have moved the assertions in the original tests here
 public class BritishLibraryCatalogueTest {
 
   BritishLibraryCatalogue britishLibraryCatalogue = BritishLibraryCatalogue.getInstance();

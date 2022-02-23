@@ -31,7 +31,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueByAuthorSurname() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByAuthorSurname() {
 
     // Check that this query is passed as a parameter when searchFor is called under
     // LibraryCatalogue
@@ -41,50 +41,40 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueByAuthorFirstname() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByAuthorFirstname() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "FIRSTNAME='Jane' ";
     checkExpectations(queryString);
     List<Book> books = aBookSearchQuery(libraryCatalogue).withFirstName("Jane").build().execute();
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueByTitle() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueByTitle() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "TITLECONTAINS(Two Cities) ";
     checkExpectations(queryString);
     List<Book> books = aBookSearchQuery(libraryCatalogue).withTitle("Two Cities").build().execute();
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueBeforeGivenPublicationYear() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueBeforeGivenPublicationYear() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "PUBLISHEDBEFORE(1700) ";
     checkExpectations(queryString);
     List<Book> books = aBookSearchQuery(libraryCatalogue).publishedBefore(1700).build().execute();
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueAfterGivenPublicationYear() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueAfterGivenPublicationYear() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "PUBLISHEDAFTER(1950) ";
     checkExpectations(queryString);
     List<Book> books = aBookSearchQuery(libraryCatalogue).publishedAfter(1950).build().execute();
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueWithCombinationOfParameters() {
+  public void checkQueryStringWhenSearchingForBooksInLibraryCatalogueWithCombinationOfParameters() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "LASTNAME='dickens' PUBLISHEDBEFORE(1840) ";
     checkExpectations(queryString);
     List<Book> books =
@@ -96,10 +86,9 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParameters() {
+  public void
+      checkQueryStringWhenSearchingForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParameters() {
 
-    // Check that this query is passed as a parameter when searchFor is called under
-    // LibraryCatalogue
     String queryString = "TITLECONTAINS(of) PUBLISHEDAFTER(1800) PUBLISHEDBEFORE(2000) ";
     checkExpectations(queryString);
     List<Book> books =
